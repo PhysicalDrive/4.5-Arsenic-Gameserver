@@ -14,12 +14,14 @@ DWORD WINAPI Main(LPVOID) {
     MH_Initialize();
     Sleep(5000);
 
+    __int64 Base = __int64(GetModuleHandleW(0)); //maybe?
+
     //crash fix
-    *reinterpret_cast<char*>((uintptr_t)GetModuleHandle(0) + 0xAEC475 + 0) = 0xE9;
-    *reinterpret_cast<char*>((uintptr_t)GetModuleHandle(0) + 0xAEC475 + 1) = 0x39;
-    *reinterpret_cast<char*>((uintptr_t)GetModuleHandle(0) + 0xAEC475 + 2) = 0x02;
-    *reinterpret_cast<char*>((uintptr_t)GetModuleHandle(0) + 0xAEC475 + 3) = 0x00;
-    *reinterpret_cast<char*>((uintptr_t)GetModuleHandle(0) + 0xAEC475 + 4) = 0x00;
+    *reinterpret_cast<char*>(Base + 0xAEC475 + 0) = 0xE9;
+    *reinterpret_cast<char*>(Base + 0xAEC475 + 1) = 0x39;
+    *reinterpret_cast<char*>(Base + 0xAEC475 + 2) = 0x02;
+    *reinterpret_cast<char*>(Base + 0xAEC475 + 3) = 0x00;
+    *reinterpret_cast<char*>(Base + 0xAEC475 + 4) = 0x00;
 
     UKismetSystemLibrary::ExecuteConsoleCommand(UWorld::GetWorld(), L"open Athena_Terrain", nullptr);
     return 0;
