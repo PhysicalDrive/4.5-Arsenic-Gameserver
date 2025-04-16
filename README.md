@@ -1,2 +1,3 @@
 # 4.5-Arsenic-Gameserver
-idk why I made this also should out to NotTacs and Swayzz for providing resources for this upcoming project
+A broken gs that no one ask for (if this works then good for you)
+Shout out to my goat Adam <3 (NotTacs)
