@@ -3,8 +3,10 @@
 #include <windows.h>
 #include <iostream>
 #include <vector>
-#include "MinHook.h"
 #include "framework.h"
+#include "hook.h"
+#include "gamemode.h"
+#include "player.h"
 
 DWORD WINAPI Main(LPVOID) {
     AllocConsole();
@@ -14,16 +16,31 @@ DWORD WINAPI Main(LPVOID) {
     MH_Initialize();
     Sleep(5000);
 
-    __int64 Base = __int64(GetModuleHandleW(0)); //maybe?
-
     //crash fix
-    *reinterpret_cast<char*>(Base + 0xAEC475 + 0) = 0xE9;
-    *reinterpret_cast<char*>(Base + 0xAEC475 + 1) = 0x39;
-    *reinterpret_cast<char*>(Base + 0xAEC475 + 2) = 0x02;
-    *reinterpret_cast<char*>(Base + 0xAEC475 + 3) = 0x00;
-    *reinterpret_cast<char*>(Base + 0xAEC475 + 4) = 0x00;
+    *reinterpret_cast<char*>(uintptr_t(GetModuleHandle(0)) + 0xAEC475 + 0) = 0xE9;
+    *reinterpret_cast<char*>(uintptr_t(GetModuleHandle(0)) + 0xAEC475 + 1) = 0x39;
+    *reinterpret_cast<char*>(uintptr_t(GetModuleHandle(0)) + 0xAEC475 + 2) = 0x02;
+    *reinterpret_cast<char*>(uintptr_t(GetModuleHandle(0)) + 0xAEC475 + 3) = 0x00;
+    *reinterpret_cast<char*>(uintptr_t(GetModuleHandle(0)) + 0xAEC475 + 4) = 0x00;
+
+    CREATEHOOK(uintptr_t(GetModuleHandle(0)) + 0x824670, DispatchRequestHook, &DispatchRequest);
+
+    CREATEHOOK(uintptr_t(GetModuleHandle(0)) + 0xE1A770, NoReserve, nullptr);
+
+    CREATEHOOK(uintptr_t(GetModuleHandle(0)) + 0xE10F10, KickPlayer, nullptr);
+
+    CREATEHOOK(uintptr_t(GetModuleHandle(0)) + 0x568F20, CanActivateAbility, nullptr);
+
+    CREATEHOOK(uintptr_t(GetModuleHandle(0)) + 0x25A0BE0, GM::ReadyToStartMatchHook, &GM::ReadyToStartMatch);
+
+    VirtualHook((void **)AFortPlayerControllerAthena::GetDefaultObj()->VTable, 0x104, Player::ServerAcknowlegePossessionHook, (void**)&Player::ServerAcknowlegePossession);
+    VirtualHook((void**)AFortPlayerControllerAthena::GetDefaultObj()->VTable, 0x242, Player::ServerLoadingScreenDroppedHook, (void**)&Player::ServerLoadingScreenDropped);
+
+    MH_EnableHook(MH_ALL_HOOKS);
 
     UKismetSystemLibrary::ExecuteConsoleCommand(UWorld::GetWorld(), L"open Athena_Terrain", nullptr);
+    UWorld::GetWorld()->OwningGameInstance->LocalPlayers.Remove(0);
+
     return 0;
 }
 

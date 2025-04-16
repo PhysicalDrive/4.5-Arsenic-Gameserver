@@ -7,7 +7,11 @@
 //if I did something wrong then change it ig
 
 namespace EngineOffsets { // I'm bad at finding engine offsets so I'm cooked
-	static uintptr_t ReadyToStartMatch = 0x69; //placeholder
+	static uintptr_t ReadyToStartMatch = 0x25A0BE0;
+	static uintptr_t InternalTryActivateAbility = 0x581590;
+	static uintptr_t StaticFindObject = 0x15B6350;
+	static uintptr_t StaticLoadObject = 0x15B7E30;
+	static uintptr_t SpawnDefaultPawnFor = 0xA81410;
 }
 namespace VTableOffsets {
 	static uintptr_t ServerReadyToStartMatch = 0x240;

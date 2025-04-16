@@ -140,9 +140,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="ability.h" />
     <ClInclude Include="framework.h" />
+    <ClInclude Include="gamemode.h" />
+    <ClInclude Include="hook.h" />
     <ClInclude Include="Offsets.h" />
     <ClInclude Include="pch.h" />
+    <ClInclude Include="player.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp" />

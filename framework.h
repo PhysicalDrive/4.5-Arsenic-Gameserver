@@ -5,10 +5,15 @@
 #include <windows.h>
 #include <iostream>
 #include "SDK.hpp"
+#include "./libs/MinHook.h"
+#pragma comment(lib,"./libs/minhook.lib")
 using namespace std;
 using namespace SDK;
 
-void VFTHook(void** VFT, int index, PVOID Hook, void** OG) {
+#define CREATEHOOK(Address, Hook, Og) \
+MH_CreateHook((void*)(Address), Hook, (void**)(Og));
+
+void VirtualHook(void** VFT, int index, PVOID Hook, void** OG) {
 
     if (OG) {
         *OG = VFT[index];
@@ -18,4 +23,8 @@ void VFTHook(void** VFT, int index, PVOID Hook, void** OG) {
     VirtualProtect(VFT + index, 8, PAGE_EXECUTE_READWRITE, &Protect);
     VFT[index] = Hook;
     VirtualProtect(VFT + index, 8, Protect, &Protect);
+}
+
+inline AFortGameStateAthena* GetGameState() {
+	return reinterpret_cast<AFortGameStateAthena*>(UWorld::GetWorld()->GameState);
 }
