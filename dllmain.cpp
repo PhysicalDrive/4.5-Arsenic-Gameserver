@@ -27,9 +27,11 @@ DWORD WINAPI Main(LPVOID) {
 
     CREATEHOOK(uintptr_t(GetModuleHandle(0)) + 0xE1A770, NoReserve, nullptr);
 
-    CREATEHOOK(uintptr_t(GetModuleHandle(0)) + 0xE10F10, KickPlayer, nullptr);
+    CREATEHOOK(uintptr_t(GetModuleHandle(0)) + 0x216DEA0, KickPlayer, nullptr);
 
     CREATEHOOK(uintptr_t(GetModuleHandle(0)) + 0x568F20, CanActivateAbility, nullptr);
+
+    CREATEHOOK(uintptr_t(GetModuleHandle(0)) + 0x2540030, UWorldGetNetMode, nullptr);
 
     CREATEHOOK(uintptr_t(GetModuleHandle(0)) + 0x25A0BE0, GM::ReadyToStartMatchHook, &GM::ReadyToStartMatch);
 

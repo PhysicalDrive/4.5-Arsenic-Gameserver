@@ -22,11 +22,18 @@ static __int64 DispatchRequestHook(__int64 a1, __int64* a2, int a3) {
 static __int64 __fastcall NoReserve(__int64 a1, __int64 a2, char a3, __int64 a4) {
 	return 0;
 }
-static __int64 __fastcall KickPlayer(__int64 a1, __int64 a2, __int64 a3) {
+int KickPlayer() {
 	return 1;
 }
 static __int64 __fastcall CanActivateAbility(__int64 a1, unsigned int a2, DWORD* a3, __int64 a4, __int64 a5, __int64* a6) {
 	return 1;
 }
 
+int UWorldGetNetMode() { // idk ida doesn't show
+	return 1;
+}
+
 static UNetDriver* (*CreateNetDriver)(UEngine* Engine, UWorld*, FName NetDriverDefinition) = decltype(CreateNetDriver)(uintptr_t(GetModuleHandle(0)) + 0x24E2F80);
+static bool (*InitHost)(AOnlineBeacon* Beacon) = decltype(InitHost)(uintptr_t(GetModuleHandle(0)) + 0x39DAB0);
+static void (*SetWorld)(UNetDriver* Driver, UWorld* World) = decltype(SetWorld)(uintptr_t(GetModuleHandle(0)) + 0x1AEFA50);
+static bool (*InitListen)(UNetDriver* Driver, void* InNotify, FURL& LocalURL, bool bReuseAddressAndPort, FString& Error) = decltype(InitListen)(uintptr_t(GetModuleHandle(0)) + 0x39DE90);
