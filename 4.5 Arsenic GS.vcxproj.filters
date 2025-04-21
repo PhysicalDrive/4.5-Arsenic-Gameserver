@@ -33,7 +33,7 @@
     <ClInclude Include="gamemode.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\ZviHosting5.41\SDK.hpp">
+    <ClInclude Include="..\4.5 Arsenic GS\SDK.hpp">
       <Filter>Resource Files</Filter>
     </ClInclude>
     <ClInclude Include="global.h">
@@ -44,19 +44,19 @@
     <ClCompile Include="dllmain.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\ZviHosting5.41\SDK\Basic.cpp">
+    <ClCompile Include="..\4.5 Arsenic GS\SDK\Basic.cpp">
       <Filter>Resource Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\ZviHosting5.41\SDK\CoreUObject_functions.cpp">
+    <ClCompile Include="..\4.5 Arsenic GS\SDK\CoreUObject_functions.cpp">
       <Filter>Resource Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\ZviHosting5.41\SDK\Engine_functions.cpp">
+    <ClCompile Include="..\4.5 Arsenic GS\SDK\Engine_functions.cpp">
       <Filter>Resource Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\ZviHosting5.41\SDK\FortniteGame_functions.cpp">
+    <ClCompile Include="..\4.5 Arsenic GS\SDK\FortniteGame_functions.cpp">
       <Filter>Resource Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\ZviHosting5.41\SDK\GameplayAbilities_functions.cpp">
+    <ClCompile Include="..\4.5 Arsenic GS\SDK\GameplayAbilities_functions.cpp">
       <Filter>Resource Files</Filter>
     </ClCompile>
   </ItemGroup>
