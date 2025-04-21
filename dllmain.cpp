@@ -1,5 +1,4 @@
 // dllmain.cpp : Defines the entry point for the DLL application.
-#include "pch.h"
 #include <windows.h>
 #include <iostream>
 #include <vector>
@@ -25,7 +24,7 @@ DWORD WINAPI Main(LPVOID) {
 
     CREATEHOOK(uintptr_t(GetModuleHandle(0)) + 0x824670, DispatchRequestHook, &DispatchRequest);
 
-    CREATEHOOK(uintptr_t(GetModuleHandle(0)) + 0xE1A770, NoReserve, nullptr);
+    // CREATEHOOK(uintptr_t(GetModuleHandle(0)) + 0xE1A770, NoReserve, nullptr); this offset may be wrong I believe
 
     CREATEHOOK(uintptr_t(GetModuleHandle(0)) + 0x216DEA0, KickPlayer, nullptr);
 
@@ -33,10 +32,22 @@ DWORD WINAPI Main(LPVOID) {
 
     CREATEHOOK(uintptr_t(GetModuleHandle(0)) + 0x2540030, UWorldGetNetMode, nullptr);
 
+    CREATEHOOK(uintptr_t(GetModuleHandle(0)) + 0x24EB5D8, GetMaxTickRate, nullptr); // ida says the output might be wrong and I don't know what that means so yeah
+
+    CREATEHOOK(uintptr_t(GetModuleHandle(0)) + 0x2299FF0, TickFlushHook, nullptr);
+
     CREATEHOOK(uintptr_t(GetModuleHandle(0)) + 0x25A0BE0, GM::ReadyToStartMatchHook, &GM::ReadyToStartMatch);
+    CREATEHOOK(uintptr_t(GetModuleHandle(0)) + 0xA81410, GM::SpawnDefaultPawnForHook, &GM::SpawnDefaultPawnFor);
+    CREATEHOOK(uintptr_t(GetModuleHandle(0)) + 0x239C750, Player::GetPlayerViewPointHook, &Player::GetPlayerViewPoint);
 
     VirtualHook((void **)AFortPlayerControllerAthena::GetDefaultObj()->VTable, 0x104, Player::ServerAcknowlegePossessionHook, (void**)&Player::ServerAcknowlegePossession);
     VirtualHook((void**)AFortPlayerControllerAthena::GetDefaultObj()->VTable, 0x242, Player::ServerLoadingScreenDroppedHook, (void**)&Player::ServerLoadingScreenDropped);
+    VirtualHook((void**)AFortPlayerControllerAthena::GetDefaultObj()->VTable, 0x240, Player::ServerReadyToStartMatchHook, (void**)&Player::ServerReadyToStartMatch);
+    VirtualHook((void**)AFortGameModeAthena::GetDefaultObj(), 0xC7, GM::HandleStartingNewPlayerHook, (void**)&GM::HandleStartingNewPlayer);
+
+    PatchThing(uintptr_t(GetModuleHandle(0)) + 0x1E365E0); // widget class
+    PatchThing(uintptr_t(GetModuleHandle(0)) + 0xC96CA0); // changegamesession
+    PatchThing(uintptr_t(GetModuleHandle(0)) + 0x52480E); // collect garbage?
 
     MH_EnableHook(MH_ALL_HOOKS);
 
