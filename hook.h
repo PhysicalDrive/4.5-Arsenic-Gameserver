@@ -21,7 +21,7 @@ static __int64 DispatchRequestHook(__int64 a1, __int64* a2, int a3) {
 }
 
 static __int64 __fastcall NoReserve(__int64 a1, __int64 a2, char a3, __int64 a4) {
-	return 0;
+	return true;
 }
 int KickPlayer() {
 	return 1;
