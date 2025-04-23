@@ -5,7 +5,7 @@ namespace Player
 	void (*ServerAcknowlegePossession)(AFortPlayerControllerAthena* PC, AFortPawn* Pawn);
 	void ServerAcknowlegePossessionHook(AFortPlayerControllerAthena* PC, AFortPawn* Pawn) {
 		PC->AcknowledgedPawn = Pawn;
-		auto PS = reinterpret_cast<AFortPlayerStateAthena*>(PC->PlayerState);
+		auto PS = (AFortPlayerStateAthena*)PC->PlayerState;
 		ApplyCharacterCustomization(PS, (AFortPawn*)Pawn);
 		return ServerAcknowlegePossession(PC, Pawn);
 	}
