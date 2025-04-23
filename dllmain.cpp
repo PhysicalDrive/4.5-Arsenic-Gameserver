@@ -24,7 +24,7 @@ DWORD WINAPI Main(LPVOID) {
 
     CREATEHOOK(uintptr_t(GetModuleHandle(0)) + 0x824670, DispatchRequestHook, &DispatchRequest);
 
-    // CREATEHOOK(uintptr_t(GetModuleHandle(0)) + 0xE1A770, NoReserve, nullptr); this offset may be wrong I believe
+    CREATEHOOK(uintptr_t(GetModuleHandle(0)) + 0xE1A770, NoReserve, nullptr); // this offset may be wrong I believe
 
     CREATEHOOK(uintptr_t(GetModuleHandle(0)) + 0x216DEA0, KickPlayer, nullptr);
 
