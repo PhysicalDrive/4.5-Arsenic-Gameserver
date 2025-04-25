@@ -44,7 +44,7 @@ DWORD WINAPI Main(LPVOID) {
     VirtualHook((void**)AFortPlayerControllerAthena::GetDefaultObj()->VTable, 0x242, Player::ServerLoadingScreenDroppedHook, (void**)&Player::ServerLoadingScreenDropped);
     VirtualHook((void**)AFortPlayerControllerAthena::GetDefaultObj()->VTable, 0x240, Player::ServerReadyToStartMatchHook, (void**)&Player::ServerReadyToStartMatch);
     VirtualHook((void**)AFortPlayerControllerAthena::GetDefaultObj()->VTable, 0x23C, Player::ServerReturnToMainMenuHook, (void**)&Player::ServerReturnToMainMenu);
-    VirtualHook((void**)AFortGameModeAthena::GetDefaultObj()->VTable, 0xC7, GM::HandleStartingNewPlayerHook, (void**)&GM::HandleStartingNewPlayer);
+    VirtualHook((void**)AGameModeBase::GetDefaultObj()->VTable, 0xC7, GM::HandleStartingNewPlayerHook, (void**)&GM::HandleStartingNewPlayer);
 
     PatchThing(uintptr_t(GetModuleHandle(0)) + 0x1E365E0); // widget class
     PatchThing(uintptr_t(GetModuleHandle(0)) + 0xC96CA0); // changegamesession
