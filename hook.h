@@ -16,7 +16,7 @@ inline T* StaticLoadObject(std::string Path, UClass* InClass = T::StaticClass(),
 }
 static __int64 (*DispatchRequest)(__int64, __int64*, int);
 static __int64 DispatchRequestHook(__int64 a1, __int64* a2, int a3) {
-	*(int*)(__int64(a2) + 0x60) = a3;
+	*(int*)(__int64(a2) + 0x60) = 3;
 	return DispatchRequest(a1, a2, 3);
 }
 
