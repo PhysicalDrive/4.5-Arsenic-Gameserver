@@ -37,7 +37,7 @@ DWORD WINAPI Main(LPVOID) {
     CREATEHOOK(uintptr_t(GetModuleHandle(0)) + 0x2299FF0, TickFlushHook, nullptr);
 
     CREATEHOOK(uintptr_t(GetModuleHandle(0)) + 0x25A0BE0, GM::ReadyToStartMatchHook, &GM::ReadyToStartMatch);
-    CREATEHOOK(uintptr_t(GetModuleHandle(0)) + 0xA81410, GM::SpawnDefaultPawnForHook, &GM::SpawnDefaultPawnFor);
+    CREATEHOOK(uintptr_t(GetModuleHandle(0)) + 0xA81410, GM::SpawnDefaultPawnForHook, nullptr);
     CREATEHOOK(uintptr_t(GetModuleHandle(0)) + 0x239C750, Player::GetPlayerViewPointHook, &Player::GetPlayerViewPoint);
 
     VirtualHook((void **)AFortPlayerControllerAthena::GetDefaultObj()->VTable, 0x104, Player::ServerAcknowlegePossessionHook, (void**)&Player::ServerAcknowlegePossession);
