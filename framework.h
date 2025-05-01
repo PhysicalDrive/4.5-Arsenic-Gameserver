@@ -13,6 +13,8 @@ using namespace SDK;
 #define CREATEHOOK(Address, Hook, Og) \
 MH_CreateHook((void*)(Address), Hook, (void**)(Og));
 
+inline uint64_t ImageBase = *(uint64_t*)(__readgsqword(0x60) + 0x10);
+
 void VirtualHook(void** VFT, int index, PVOID Hook, void** OG) {
 
     if (OG) {
