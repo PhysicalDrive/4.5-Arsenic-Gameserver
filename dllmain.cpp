@@ -23,6 +23,7 @@ DWORD WINAPI Main(LPVOID) {
     *reinterpret_cast<char*>(ImageBase + 0xAEC475 + 4) = 0x00;
 
     *(bool*)(ImageBase + 0x4DAD489) = false; // prob will work and maybe not
+    *(bool*)(ImageBase + 0x4DAD48A) = true;
 
     CREATEHOOK(ImageBase + 0x824670, DispatchRequestHook, &DispatchRequest);
 
